@@ -2,26 +2,22 @@
 
 ## Instructions
 
-### 1. Install Dependencies
+### 1.A Install Production Dependencies
 
 ```bash
-# NPM 
-> npm i -D @types/node @types/yargs rimraf typescript ts-node-dev
+npm i -D yargs cron
+```
 
-# YARN
-> yarn add -D @types/node @types/yargs rimraf typescript ts-node-dev
+### 1.B Install Dev Dependencies
 
-# PNPM
-> pnpm add -D @types/node @types/yargs rimraf typescript ts-node-dev
-
-# BUN
-> bun add -D @types/node @types/yargs rimraf typescript ts-node-dev
+```bash
+npm i -D @types/node @types/yargs rimraf typescript ts-node-dev
 ```
 
 ### 2. Initialize Typescript Configuration:
 
 ```bash
-> npx tsc --init --outDir dist/ --rootDir src/
+npx tsc --init --outDir dist/ --rootDir src/
 ```
 
 ### 3. Modify ```tsconfig.json```:
@@ -41,14 +37,14 @@
 ### 4. Create ```src/``` folder:
 
 ```bash
-> mkdir src
+mkdir src
 ```
 
 ### 5. Create ```index.ts``` file inside ```src/``` folder:
 
 ```bash
-> touch src/index.ts
-> echo 'console.log("NodeJs Running")' > src/index.ts
+touch src/index.ts
+echo 'console.log("NodeJs Running")' > src/index.ts
 ```
 
 ### 6. Modify ```package.json``` and replace the following code with:
@@ -74,7 +70,7 @@
 ### 7. Create and edit ```.gitignore```
 
 ```bash
-> touch .gitignore
+touch .gitignore
 ```
 
 **Ignore the necessary folders and files:**
@@ -87,17 +83,7 @@ dist/
 ### 8. Run Development:
 
 ```bash
-# NPM
-> npm run dev
-
-# YARN
-> yarn dev
-
-# PNPM
-> pnpm dev
-
-# BUN
-> bun dev
+npm run dev
 ```
 
 **Now the server will run something similar:**
@@ -115,10 +101,10 @@ NodeJs Running
 ### 9. Don't forget to initialize ```GIT```:
 
 ```bash
-> git init
-> git add .
-> git commit -m "initial-configuration"
-> git tag 0.0.0
+git init
+git add .
+git commit -m "initial-configuration"
+git tag 0.0.0
 ```
 
 **NOTE: git tags are useful to keep track semantic versioning with package.json.**
@@ -133,45 +119,19 @@ NodeJs Running
 }
 ```
 
-### 10. Install ```YARGS```
+### 10. Install testing dependencies
 
 ```bash
-# NPM
-> npm install yargs @types/yargs
-
-# YARN
-> yarn add yargs @types/yargs
-
-# PNPM
-> pnpm add yargs @types/yargs
-
-# BUN
-> bun add yargs @types/yargs
+npm install jest @types/jest ts-jest supertest
 ```
 
-### 11. Install testing dependencies
+### 11. Create jest configuration file.
 
 ```bash
-# NPM
-> npm install jest @types/jest ts-jest supertest
-
-# YARN
-> yarn add jest @types/jest ts-jest supertest
-
-# PNPM
-> pnpm add jest @types/jest ts-jest supertest
-
-# BUN
-> bun add jest @types/jest ts-jest supertest
+npx jest --init
 ```
 
-### 12. Create jest configuration file.
-
-```bash
-> npx jest --init
-```
-
-### 13. Configure ```jest.config.ts```.
+### 12. Configure ```jest.config.ts```.
 
 ```typescript
 const config: Config = {
@@ -188,7 +148,7 @@ const config: Config = {
 }
 ```
 
-### 14. Create scripts for testing in ```package.json```
+### 13. Create scripts for testing in ```package.json```
 
 ```json
 {
