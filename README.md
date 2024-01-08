@@ -6,42 +6,25 @@
 
 ```bash
 # NPM 
-> npm i -D typescript @types/node ts-node-dev nodemon rimraf
+> npm i -D @types/node @types/yargs rimraf typescript ts-node-dev
 
 # YARN
-> yarn add -D typescript @types/node ts-node-dev nodemon rimraf
+> yarn add -D @types/node @types/yargs rimraf typescript ts-node-dev
 
 # PNPM
-> pnpm i -D typescript @types/node ts-node-dev nodemon rimraf
+> pnpm add -D @types/node @types/yargs rimraf typescript ts-node-dev
 
 # BUN
-> bun i -D typescript @types/node ts-node-dev nodemon rimraf
+> bun add -D @types/node @types/yargs rimraf typescript ts-node-dev
 ```
 
-### 2. Create Node Configuration File
-
-```bash
-> touch nodemon.json
-```
-
-### 3. Edit nodemon.json and put the following code:
-
-```json
-{
-  "watch": ["src"],
-  "ext": ".ts,.js",
-  "ignore": [],
-  "exec": "npx ts-node-dev --inspect -- ./src/app.ts"
-}
-```
-
-### 4. Initialize Typescript Configuration:
+### 2. Initialize Typescript Configuration:
 
 ```bash
 > npx tsc --init --outDir dist/ --rootDir src/
 ```
 
-### 5. Modify ```tsconfig.json```:
+### 3. Modify ```tsconfig.json```:
 
 ```json
 "compilerOptions": {
@@ -55,20 +38,20 @@
 }
 ```
 
-### 6. Create ```src/``` folder:
+### 4. Create ```src/``` folder:
 
 ```bash
 > mkdir src
 ```
 
-### 7. Create ```app.ts``` file inside ```src/``` folder:
+### 5. Create ```index.ts``` file inside ```src/``` folder:
 
 ```bash
-> touch src/app.ts
-> echo 'console.log("NodeJs Running")' > src/app.ts
+> touch src/index.ts
+> echo 'console.log("NodeJs Running")' > src/index.ts
 ```
 
-### 8. Modify ```package.json``` and replace the following code with:
+### 6. Modify ```package.json``` and replace the following code with:
 
 ```json
 "name": "name-of-your-application",
@@ -78,8 +61,7 @@
 "main": "app.js",
 // ...
 "scripts": {
-  "dev": "ts-node-dev --inspect -- src/app.ts",
-  "dev:nodemon": "nodemon",
+  "dev": "tsnd --respawn src/index.ts -- src/app.ts",
   "build": "rimraf ./dist && && tsc",
   "start": "npm run build && node dist/app.js"
 },
@@ -89,7 +71,7 @@
 "license": "UNLICENSED",
 ```
 
-### 9. Create and edit ```.gitignore```
+### 7. Create and edit ```.gitignore```
 
 ```bash
 > touch .gitignore
@@ -102,7 +84,7 @@ node_modules/
 dist/
 ```
 
-### 10. Run Development:
+### 8. Run Development:
 
 ```bash
 # NPM
@@ -130,7 +112,7 @@ NodeJs Running
 [nodemon] clean exit - waiting for changes before restart
 ```
 
-### 11. Don't forget to initialize ```GIT```:
+### 9. Don't forget to initialize ```GIT```:
 
 ```bash
 > git init
@@ -151,7 +133,7 @@ NodeJs Running
 }
 ```
 
-### 12. Install ```YARGS```
+### 10. Install ```YARGS```
 
 ```bash
 # NPM
@@ -167,7 +149,7 @@ NodeJs Running
 > bun add yargs @types/yargs
 ```
 
-### 13. Install testing dependencies
+### 11. Install testing dependencies
 
 ```bash
 # NPM
@@ -183,13 +165,13 @@ NodeJs Running
 > bun add jest @types/jest ts-jest supertest
 ```
 
-### 14. Create jest configuration file.
+### 12. Create jest configuration file.
 
 ```bash
 > npx jest --init
 ```
 
-### 15. Configure ```jest.config.ts```.
+### 13. Configure ```jest.config.ts```.
 
 ```typescript
 const config: Config = {
@@ -206,17 +188,17 @@ const config: Config = {
 }
 ```
 
-### 16. Create scripts for testing in ```package.json```
+### 14. Create scripts for testing in ```package.json```
 
 ```json
 {
   // ...
   "scripts": [
     // ...
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --silent",
+    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
     "test:coverage": "jest --coverage"
   ],
   // ...
 }
-````
+```
