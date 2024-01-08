@@ -1,9 +1,7 @@
-type Stack = string[];
+import Server from "./presentation/server";
 
-const stack: Stack = ['typescript', 'nodejs', 'express', 'mongodb', 'postgres'];
+(() => main())();
 
-console.log("NodeJs Running ...");
-
-for (const item of stack) {
-  console.log(item);
+function main() {
+  Server.start();
 }
