@@ -1,4 +1,3 @@
-
 import Server from "./presentation/server";
 
 const main = () => {

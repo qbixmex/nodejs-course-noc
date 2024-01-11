@@ -1,3 +1,4 @@
+import { envs } from "../config/plugins/envs.plugin";
 import CronService from "./cron/cron-service";
 import CheckService from "../domain/use-cases/checks/check-service";
 import LogRepositoryImplementation from "../infraestructure/repositories/log-implementation.repository";
@@ -12,7 +13,7 @@ class Server {
     console.log('Server started ...');
 
     CronService.createJob('*/30 * * * * *', () => {
-      const URL = 'http://localhost:3005';
+      const URL = `${envs.PORT}:3005`;
       new CheckService(
         fileSystemLogRepository,
         () => {
