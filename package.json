@@ -1,11 +1,10 @@
 {
   "name": "05-noc",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "A node js app monitor for the NOC",
   "main": "index.js",
   "scripts": {
-    "dev": "tsnd --respawn src/index.ts",
-    "dev:nodemon": "nodemon --base=5 --show",
+    "dev": "tsnd --respawn --inspect -- src/index.ts",
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/app.js",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest --silent",

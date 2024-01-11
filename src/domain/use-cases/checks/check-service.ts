@@ -35,9 +35,9 @@ class CheckService implements CheckServiceUseCase {
 
     } catch (error) {
 
-      const errorMessage = `${error}`;
+      const errorMessage = `${url} is not working. ${error}`;
 
-      const log = new LogEntity(errorMessage, LogSeverityLevel.LOW);
+      const log = new LogEntity(errorMessage, LogSeverityLevel.HIGH);
 
       this.logRepository.saveLog(log);
 

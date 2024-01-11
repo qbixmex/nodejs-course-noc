@@ -1,5 +1,11 @@
 import CronService from "./cron/cron-service";
 import CheckService from "../domain/use-cases/checks/check-service";
+import LogRepositoryImplementation from "../infraestructure/repositories/log-implementation.repository";
+import FileSystemDataSource from "../infraestructure/datasources/file-system.datasource";
+
+const fileSystemLogRepository = new LogRepositoryImplementation(
+  new FileSystemDataSource()
+);
 
 class Server {
   public static start(): void {
@@ -8,6 +14,7 @@ class Server {
     CronService.createJob('*/30 * * * * *', () => {
       const URL = 'http://localhost:3005';
       new CheckService(
+        fileSystemLogRepository,
         () => {
           const date = new Date().toLocaleString('en-US', { timeZone: 'America/Vancouver' });
           console.log(`[${date}] - (${URL}) is ok!`);
