@@ -6,7 +6,14 @@ class Server {
     console.log('Server started ...');
 
     CronService.createJob('*/30 * * * * *', () => {
-      new CheckService().execute('http://localhost:3005');
+      const URL = 'http://localhost:3005';
+      new CheckService(
+        () => {
+          const date = new Date().toLocaleString('en-US', { timeZone: 'America/Vancouver' });
+          console.log(`[${date}] - (${URL}) is ok!`);
+        },
+        (error: string) => console.log(error)
+      ).execute(URL);
     });
   }
 }
