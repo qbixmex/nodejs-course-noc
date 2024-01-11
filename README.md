@@ -162,3 +162,19 @@ const config: Config = {
   // ...
 }
 ```
+
+### 14. Config Environment Variables
+
+```bash
+cp .env.template .env
+```
+
+**Edit variables the values ```.env```**
+
+```
+PORT= # example 3000
+HOST= # https://yourdomain.com
+MAILER_EMAIL= # example mailer@yourdomain.com
+MAILER_SECRET_KEY= # example 123456
+PRODUCTION= # true or false
+```
