@@ -50,8 +50,22 @@ class FileSystemDataSource implements LogRepository {
 
   }
 
-  getLogs(severity: LogSeverityLevel): LogEntity[] {
-    throw new Error('Method not implemented.');
+  private getLogsFromFile(path: string): LogEntity[] {
+    const content = fs.readFileSync(path, 'utf-8');
+    return content.split('\n').map(LogEntity.fromJSON);
+  }
+
+  getLogs(severityLevel: LogSeverityLevel): LogEntity[] {
+    switch (severityLevel) {
+      case LogSeverityLevel.LOW:
+        return this.getLogsFromFile(this.allLogsPath);
+      case LogSeverityLevel.MEDIUM:
+        return this.getLogsFromFile(this.mediumLogsPath);
+      case LogSeverityLevel.HIGH:
+        return this.getLogsFromFile(this.highLogsPath);
+      default:
+        throw new Error(`${severityLevel} invalid severity level`);
+    }
   }
 
 }
