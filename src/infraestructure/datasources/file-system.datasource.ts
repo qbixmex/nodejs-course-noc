@@ -1,12 +1,12 @@
 import fs from 'node:fs';
-import LogDataSource from "../../domain/data-sources/log.data-source";
 import LogEntity, { LogSeverityLevel } from "../../domain/entities/log.entity";
+import LogRepository from '../../domain/repository/log.repository';
 
-class FileSystemDataSource implements LogDataSource {
+class FileSystemDataSource implements LogRepository {
 
   private readonly logPath = 'logs/';
   private readonly filePaths = [
-    'logs/low-logs.log',
+    'logs/all-logs.log',
     'logs/medium-logs.log',
     'logs/high-logs.log'
   ];
@@ -31,12 +31,27 @@ class FileSystemDataSource implements LogDataSource {
 
   }
 
-  saveLog(log: LogEntity): Promise<void> {
-    throw new Error("Method not implemented.");
+  saveLog(newLog: LogEntity): void {
+
+    const logAsJSON = `${JSON.stringify(newLog)}\n`;
+
+    fs.appendFileSync(this.allLogsPath, logAsJSON);
+
+    if (newLog.level === LogSeverityLevel.LOW) return;
+
+    if (newLog.level === LogSeverityLevel.MEDIUM) {
+      fs.appendFileSync(this.mediumLogsPath, logAsJSON);
+      return;
+    }
+
+    if (newLog.level === LogSeverityLevel.HIGH) {
+      fs.appendFileSync(this.highLogsPath, logAsJSON);
+    }
+
   }
 
-  getLogs(severity: LogSeverityLevel): Promise<LogEntity[]> {
-    throw new Error("Method not implemented.");
+  getLogs(severity: LogSeverityLevel): LogEntity[] {
+    throw new Error('Method not implemented.');
   }
 
 }
