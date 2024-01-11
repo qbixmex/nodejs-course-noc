@@ -5,8 +5,8 @@ interface CheckServiceUseCase {
   execute(url: string): Promise<boolean>;
 }
 
-type SuccessCallback = () => void;
-type ErrorCallback = (error: string) => void;
+type SuccessCallback = (() => void) | null;
+type ErrorCallback = ((error: string) => void) | null;
 
 class CheckService implements CheckServiceUseCase {
 
@@ -29,7 +29,7 @@ class CheckService implements CheckServiceUseCase {
 
       this.logRepository.saveLog(log);
 
-      this.successCallback();
+      this.successCallback && this.successCallback();
 
       return true;
 
@@ -41,7 +41,7 @@ class CheckService implements CheckServiceUseCase {
 
       this.logRepository.saveLog(log);
 
-      this.errorCallback(errorMessage);
+      this.errorCallback && this.errorCallback(errorMessage);
 
       return false
 
