@@ -12,8 +12,8 @@ class Server {
   public static start(): void {
     console.log('Server started ...');
 
-    CronService.createJob('*/30 * * * * *', () => {
-      const URL = `${envs.PORT}:3005`;
+    CronService.createJob('*/5 * * * * *', () => {
+      const URL = `${envs.HOST}:3005`;
       new CheckService(
         fileSystemLogRepository,
         () => {

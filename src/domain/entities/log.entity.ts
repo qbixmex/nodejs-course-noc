@@ -4,26 +4,45 @@ export enum LogSeverityLevel {
   HIGH   = 'high',
 }
 
+export interface Options {
+  level: LogSeverityLevel;
+  message: string;
+  origin: string;
+  createdAt?: Date;
+}
+
 class LogEntity {
 
   public level: LogSeverityLevel;
   public message: string;
-  public createdAt: Date;
+  public origin: string;
+  public createdAt?: Date;
 
-  constructor(message: string, level: LogSeverityLevel) {
-    this.level = level;
-    this.message = message;
-    //* Timestamp
-    const date = new Date();
-    const options = { timeZone: 'America/Vancouver' };
-    this.createdAt = new Date(date.toLocaleString('en-US', options));
+  constructor(options: Options) {
+    this.level     = options.level;
+    this.message   = options.message;
+    this.origin    = options.origin;
+    this.createdAt = options.createdAt ?? this.generateDate('America/Vancouver');
   }
 
   static fromJSON = (json: string): LogEntity => {
-    const { message, level, createdAt } = JSON.parse(json) as LogEntity;
-    const log = new LogEntity(message, level);
-    log.createdAt = new Date(createdAt);
+
+    const jsonOptions = JSON.parse(json) as LogEntity;
+
+    const log = new LogEntity({
+      message:   jsonOptions.message,
+      level:     jsonOptions.level,
+      createdAt: jsonOptions.createdAt,
+      origin:    jsonOptions.origin,
+    });
+
     return log;
+
+  }
+
+  private generateDate(timeZone = 'Europe/London'): Date {
+    const date = new Date();
+    return new Date(date.toLocaleString('en-US', { timeZone }));
   }
 
 }
