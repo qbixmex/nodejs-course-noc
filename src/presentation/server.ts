@@ -12,17 +12,20 @@ class Server {
   public static start(): void {
     console.log('Server started ...');
 
-    CronService.createJob('*/5 * * * * *', () => {
-      const URL = `${envs.HOST}:3005`;
-      new CheckService(
-        fileSystemLogRepository,
-        () => {
-          const date = new Date().toLocaleString('en-US', { timeZone: 'America/Vancouver' });
-          console.log(`[${date}] - (${URL}) is ok!`);
-        },
-        (error: string) => console.log(error)
-      ).execute(URL);
-    });
+    console.log("Email:", envs.MAILER_EMAIL);
+    console.log("Secret Key:", envs.MAILER_SECRET_KEY);
+
+    // CronService.createJob('*/5 * * * * *', () => {
+    //   const URL = `${envs.HOST}:3005`;
+    //   new CheckService(
+    //     fileSystemLogRepository,
+    //     () => {
+    //       const date = new Date().toLocaleString('en-US', { timeZone: 'America/Vancouver' });
+    //       console.log(`[${date}] - (${URL}) is ok!`);
+    //     },
+    //     (error: string) => console.log(error)
+    //   ).execute(URL);
+    // });
   }
 }
 
