@@ -1,5 +1,5 @@
-import LogRepositoryImplementation from "../infraestructure/repositories/log-implementation.repository";
 import FileSystemDataSource from "../infraestructure/datasources/file-system.datasource";
+import LogRepositoryImplementation from "../infraestructure/repositories/log-implementation.repository";
 import EmailService from "./email/email.service";
 
 const fileSystemLogRepository = new LogRepositoryImplementation(
@@ -11,17 +11,12 @@ class Server {
     console.log('Server started ...');
 
     //* Send Email
-    const emailService = new EmailService();
+    // const emailService = new EmailService(fileSystemLogRepository);
 
-    emailService.sendEmail({
-      to: 'sonusbeat@gmail.com',
-      subject: 'This is a test mail from NodeMailer',
-      htmlBody: `
-        <h1>Test Email</h1>
-        <p>Do do et tempor minim ipsum sint tempor incididunt ex Lorem voluptate. Aute pariatur dolore quis voluptate anim consequat aliquip. Duis magna eu cupidatat ut ut consequat veniam fugiat non sit eu elit. Nisi laborum id labore adipisicing ad sunt sint anim non. Minim voluptate magna reprehenderit qui enim laborum officia irure sint sit eiusmod eiusmod.</p>
-        <p>Attachments: <a href="#">Some Attachments</a></p>
-      `,
-    });
+    // emailService.sendEmailWithFileSystemLogs([
+    //   'sonusbeat@gmail.com',
+    //   'bclancan@gmail.com'
+    // ]);
 
     // CronService.createJob('*/5 * * * * *', () => {
     //   const URL = `${envs.HOST}:3005`;
