@@ -178,3 +178,12 @@ MAILER_EMAIL= # example mailer@yourdomain.com
 MAILER_SECRET_KEY= # example 123456
 PRODUCTION= # true or false
 ```
+
+### 15. Docker
+
+**Load Docker Image**
+
+```bash
+# Detach Mode
+docker compose up -d
+```
