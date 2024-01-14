@@ -14,13 +14,14 @@ class Server {
 
     console.log('Server started ...');
 
-    new SendEmailLogs(
-      emailService,
-      fileSystemLogRepository
-    ).execute([
-      'sonusbeat@gmail.com',
-      'bclancan@gmail.com',
-    ]);
+    //* Sending Email
+    // new SendEmailLogs(
+    //   emailService,
+    //   fileSystemLogRepository
+    // ).execute([
+    //   'sonusbeat@gmail.com',
+    //   'bclancan@gmail.com',
+    // ]);
 
     // CronService.createJob('*/5 * * * * *', () => {
     //   const URL = `${envs.HOST}:3005`;
