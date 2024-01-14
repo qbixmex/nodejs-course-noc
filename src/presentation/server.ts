@@ -1,3 +1,4 @@
+import SendEmailLogs from "../domain/use-cases/email/send-email-logs";
 import FileSystemDataSource from "../infraestructure/datasources/file-system.datasource";
 import LogRepositoryImplementation from "../infraestructure/repositories/log-implementation.repository";
 import EmailService from "./email/email.service";
@@ -6,17 +7,20 @@ const fileSystemLogRepository = new LogRepositoryImplementation(
   new FileSystemDataSource()
 );
 
+const emailService = new EmailService();
+
 class Server {
   public static start(): void {
+
     console.log('Server started ...');
 
-    //* Send Email
-    // const emailService = new EmailService(fileSystemLogRepository);
-
-    // emailService.sendEmailWithFileSystemLogs([
-    //   'sonusbeat@gmail.com',
-    //   'bclancan@gmail.com'
-    // ]);
+    new SendEmailLogs(
+      emailService,
+      fileSystemLogRepository
+    ).execute([
+      'sonusbeat@gmail.com',
+      'bclancan@gmail.com',
+    ]);
 
     // CronService.createJob('*/5 * * * * *', () => {
     //   const URL = `${envs.HOST}:3005`;
@@ -30,6 +34,7 @@ class Server {
     //   ).execute(URL);
     // });
   }
+
 }
 
 export default Server;

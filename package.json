@@ -1,6 +1,6 @@
 {
   "name": "05-noc",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "A node js app monitor for the NOC",
   "main": "index.js",
   "scripts": {

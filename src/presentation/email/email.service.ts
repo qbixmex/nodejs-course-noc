@@ -1,7 +1,5 @@
 import nodemailer from "nodemailer";
 import { envs } from '../../config/plugins/envs.plugin';
-import LogRepository from "../../domain/repository/log.repository";
-import LogEntity, { LogSeverityLevel } from "../../domain/entities/log.entity";
 
 type SendMailOptions = {
   to: string | string[];
@@ -17,9 +15,7 @@ interface Attachment {
 
 class EmailService {
 
-  constructor(
-    private readonly logRepository: LogRepository
-  ) {}
+  constructor() {}
 
   private transporter = nodemailer.createTransport({
     service: envs.MAILER_SERVICE,
@@ -29,7 +25,7 @@ class EmailService {
     }
   });
 
-  async sendEmailWithFileSystemLogs(to: string | string[]) {
+  async sendEmailWithFileSystemLogs(to: string | string[]): Promise<boolean> {
 
     const subject = "Server Logs";
 
@@ -59,26 +55,10 @@ class EmailService {
         html: options.htmlBody,
         attachments: options.attachments ?? [],
       });
-
-      const log = new LogEntity({
-        level: LogSeverityLevel.LOW,
-        message: `Email sent to ${options.to}`,
-        origin: 'email.service.ts',
-      });
       
-      this.logRepository.saveLog(log);
-
       return true;
 
     } catch {
-
-      const log = new LogEntity({
-        level: LogSeverityLevel.HIGH,
-        message: 'Email not sent !',
-        origin: 'email.service.ts',
-      });
-      
-      this.logRepository.saveLog(log);
 
       return false;
 
