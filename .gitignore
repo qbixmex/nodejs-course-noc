@@ -10,5 +10,8 @@ dist/
 # Logs
 logs/
 
+# Database Volumes
+mongo/
+
 # Local env files
 .env
