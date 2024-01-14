@@ -12,7 +12,7 @@ const emailService = new EmailService();
 class Server {
   public static start(): void {
 
-    console.log('Server started ...');
+    console.log('Server Started');
 
     //* Sending Email
     // new SendEmailLogs(
