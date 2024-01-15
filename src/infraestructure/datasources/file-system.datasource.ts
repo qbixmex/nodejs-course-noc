@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import LogEntity, { LogSeverityLevel } from "../../domain/entities/log.entity";
-import LogDataSource from '../../domain/data-sources/log.data-source';
+import LogRepository from '../../domain/repository/log.repository';
 
-class FileSystemDataSource implements LogDataSource {
+class FileSystemDataSource implements LogRepository {
 
   private readonly logPath = 'logs/';
   private readonly filePaths = [

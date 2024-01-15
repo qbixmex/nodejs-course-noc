@@ -17,7 +17,7 @@ class MongoLogDataSource implements LogDataSource {
     return logs.map(
       mongoLog => LogEntity.fromObject({
         message:   mongoLog.message,
-        level:     LogSeverityLevel[mongoLog.level!],
+        level:     LogSeverityLevel[mongoLog.level?.toUpperCase() as keyof typeof LogSeverityLevel],
         origin:    mongoLog.origin!,
         createdAt: mongoLog.createdAt,
       })

@@ -7,11 +7,11 @@ class LogRepositoryImplementation implements LogRepository {
     private readonly logDataSource: LogRepository,
   ) {}
 
-  saveLog(log: LogEntity): void {
+  async saveLog(log: LogEntity): Promise<void> {
     this.logDataSource.saveLog(log);
   }
 
-  getLogs(severityLevel: LogSeverityLevel): LogEntity[] {
+  async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
     return this.logDataSource.getLogs(severityLevel);
   }
 
