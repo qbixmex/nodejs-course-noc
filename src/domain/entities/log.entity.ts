@@ -28,7 +28,7 @@ class LogEntity {
   static fromJSON = (json: string): LogEntity => {
 
     const jsonOptions = JSON.parse(json) as LogEntity;
-
+  
     const log = new LogEntity({
       message:   jsonOptions.message,
       level:     jsonOptions.level,

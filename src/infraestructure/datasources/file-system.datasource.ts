@@ -52,7 +52,11 @@ class FileSystemDataSource implements LogRepository {
 
   private getLogsFromFile(path: string): LogEntity[] {
     const content = fs.readFileSync(path, 'utf-8');
-    return content.split('\n').map(LogEntity.fromJSON);
+    if (content === '') return [];
+
+    return content.split('\n')
+      .filter(log => log !== '')
+      .map(log => LogEntity.fromJSON(log));
   }
 
   async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
