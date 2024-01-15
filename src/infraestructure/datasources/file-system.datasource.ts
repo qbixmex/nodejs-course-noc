@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import LogEntity, { LogSeverityLevel } from "../../domain/entities/log.entity";
-import LogRepository from '../../domain/repository/log.repository';
+import LogDataSource from '../../domain/data-sources/log.data-source';
 
-class FileSystemDataSource implements LogRepository {
+class FileSystemDataSource implements LogDataSource {
 
   private readonly logPath = 'logs/';
   private readonly filePaths = [
@@ -31,7 +31,7 @@ class FileSystemDataSource implements LogRepository {
 
   }
 
-  saveLog(newLog: LogEntity): void {
+  async saveLog(newLog: LogEntity): Promise<void> {
 
     const logAsJSON = `${JSON.stringify(newLog)}\n`;
 
@@ -55,7 +55,7 @@ class FileSystemDataSource implements LogRepository {
     return content.split('\n').map(LogEntity.fromJSON);
   }
 
-  getLogs(severityLevel: LogSeverityLevel): LogEntity[] {
+  async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
     switch (severityLevel) {
       case LogSeverityLevel.LOW:
         return this.getLogsFromFile(this.allLogsPath);
