@@ -1,25 +1,20 @@
-import { envs } from "../config/plugins/envs.plugin";
 import { LogSeverityLevel } from "../domain/entities/log.entity";
-import CheckService from "../domain/use-cases/checks/check-service";
 import FileSystemDataSource from "../infraestructure/datasources/file-system.datasource";
-import MongoLogDataSource from "../infraestructure/datasources/mongo-log.datasource";
 import LogRepositoryImplementation from "../infraestructure/repositories/log-implementation.repository";
-import CronService from "./cron/cron-service";
 
-const logRepository = new LogRepositoryImplementation(
-  new FileSystemDataSource()
+// const logRepository = new LogRepositoryImplementation(
+  // new FileSystemDataSource()
   // new MongoLogDataSource()
-);
+// );
 
 // const emailService = new EmailService();
 
 class Server {
   public static async start(): Promise<void> {
 
-    console.log('Server Started');
+    console.log('\nServer Started');
 
-    const logs = await logRepository.getLogs(LogSeverityLevel.HIGH);
-    console.log({ "LOGS": logs });
+    // const logs = await logRepository.getLogs(LogSeverityLevel.HIGH);
 
     //* Sending Email
     // new SendEmailLogs(
