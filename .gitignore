@@ -12,6 +12,7 @@ logs/
 
 # Database Volumes
 mongo/
+postgres/
 
 # Local env files
 .env
