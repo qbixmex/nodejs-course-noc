@@ -31,6 +31,8 @@ class SendEmailLogs implements SendLogsUseCase {
 
       this.logRepository.saveLog(log);
 
+      console.log('Email Sent Successfully');
+
       return true;
 
     } catch (error) {
@@ -43,6 +45,8 @@ class SendEmailLogs implements SendLogsUseCase {
         });
   
         this.logRepository.saveLog(log);
+
+        console.log('Error: email Not Sent');
 
         return false;
       }
