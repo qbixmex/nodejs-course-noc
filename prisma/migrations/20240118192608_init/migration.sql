@@ -3,7 +3,7 @@ CREATE TYPE "SeverityLevel" AS ENUM ('LOW', 'MEDIUM', 'HIGH');
 
 -- CreateTable
 CREATE TABLE "LogModel" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "message" TEXT NOT NULL,
     "origin" TEXT NOT NULL DEFAULT 'unknown',
     "level" "SeverityLevel" NOT NULL,

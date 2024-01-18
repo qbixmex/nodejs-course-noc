@@ -17,7 +17,7 @@ enum SeverityLevel {
 }
 
 model LogModel {
-  id        Int           @id @default(autoincrement())
+  id        String        @id @default(uuid())
   message   String
   origin    String        @default("unknown")
   level     SeverityLevel

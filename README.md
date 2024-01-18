@@ -137,8 +137,8 @@ npx jest --init
 const config: Config = {
   // ...
 
-  preset: ts-jest,
-  testEnvironment: 'jest-environment-node',
+  preset: "ts-jest",
+  testEnvironment: "jest-environment-node",
 
   // Optional - The paths for modules that run some
   // code to configure or set up the testing
@@ -187,3 +187,18 @@ PRODUCTION= # true or false
 # Detach Mode
 docker compose up -d
 ```
+
+### 16. Prisma
+
+**1. Generate Client**
+
+```bash
+npx prisma generate
+```
+
+**2. Migrate Tables**
+
+```bash
+npx prisma migrate dev
+```
+
