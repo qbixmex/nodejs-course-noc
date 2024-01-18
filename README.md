@@ -202,3 +202,49 @@ npx prisma generate
 npx prisma migrate dev
 ```
 
+### 17. Update Package JSON
+
+```json
+// ...
+"docker:test": "docker compose -f docker-compose.test.yaml --env-file .env.test up -d",
+// ...
+```
+
+### 18. Create .env.test.template
+
+**Add this following code**
+
+```
+PORT=3000
+HOST=http://localhost
+MAILER_SERVICE=gmail
+MAILER_EMAIL=user@domain.com
+MAILER_SECRET_KEY=# secret key
+PRODUCTION=false
+
+MONGO_URL="mongodb://<change_user>:<change_password>@localhost:27017"
+MONGO_DB_NAME=DATABASE_NAME
+MONGO_USER=DATABASE_USERNAME
+MONGO_PASSWORD=DATABASE_PASSWORD
+
+POSTGRES_URL="postgres://<change_user>:<change_password>@localhost:5432/DATABASE_NAME"
+POSTGRES_DB=DATABASE_NAME
+POSTGRES_USER=DATABASE_USERNAME
+POSTGRES_PASSWORD=DATABASE_PASSWORD
+```
+
+### 19. Create .env.test and modify necessary changes
+
+```bash
+cp .env.test.template .env.test
+```
+
+### 20. Don't forget to ignore .env.test in .gitignore
+
+```text
+...
+
+# Local env files
+.env
+.env.test # <-- Append this line
+```

@@ -1,15 +1,16 @@
 {
   "name": "05-noc",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "A node js app monitor for the NOC",
   "main": "app.js",
   "scripts": {
     "dev": "tsnd --respawn --inspect --clear -- src/app.ts",
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/app.js",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --silent",
-    "test:watch": "NODE_OPTIONS=--experimental-vm-modules jest --watch",
-    "test:coverage": "jest --coverage"
+    "docker:test": "docker compose -f docker-compose.test.yaml --env-file .env.test up -d",
+    "test": "npm run docker:test && jest",
+    "test:watch": "npm run docker:test && jest --watch",
+    "test:coverage": "npm run docker:test && jest --coverage"
   },
   "keywords": [
     "node",

@@ -31,8 +31,8 @@ class Server {
       const URL = `${envs.HOST}:3005`;
       new CheckServiceMultiple(
         [
-          // fileSystemLogRepository,
-          // mongoLogRepository,
+          fileSystemLogRepository,
+          mongoLogRepository,
           postgresLogRepository,
         ],
         () => {
