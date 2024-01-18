@@ -248,3 +248,22 @@ cp .env.test.template .env.test
 .env
 .env.test # <-- Append this line
 ```
+
+### 21. Create setupTests.ts and put the following code
+
+```typescript
+import { config } from "dotenv";
+
+config({
+  path: ".env.test",
+});
+```
+
+### 22. Modify ```jest.config.ts```
+
+```typescript
+// ...
+setupFiles: [
+  "<rootDir>/setupTests.ts", // <-- Add this configuration
+], 
+```
