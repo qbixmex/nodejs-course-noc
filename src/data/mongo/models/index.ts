@@ -1,0 +1,1 @@
+export { type ILog, default as LogModel } from './log.model';
