@@ -11,10 +11,10 @@ dist/
 logs/
 
 # Database Volumes
-mongo/
-mongo_test/
-postgres/
-postgres_test/
+/mongo/
+/mongo_test/
+/postgres/
+/postgres_test/
 
 # Local env files
 .env
