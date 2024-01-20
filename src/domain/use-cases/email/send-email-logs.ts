@@ -20,7 +20,7 @@ class SendEmailLogs implements SendLogsUseCase {
       const sent = await this.emailService.sendEmailWithFileSystemLogs(to);
 
       if (!sent) {
-        throw new Error('Email not sent!');
+        throw new Error('Email not sent !');
       }
 
       const log = new LogEntity({
@@ -31,29 +31,13 @@ class SendEmailLogs implements SendLogsUseCase {
 
       this.logRepository.saveLog(log);
 
-      console.log('Email Sent Successfully');
-
       return true;
 
     } catch (error) {
 
-      if (error instanceof Error) {
-        const log = new LogEntity({
-          level: LogSeverityLevel.HIGH,
-          message: `Error sending email: ${error.message}`,
-          origin: 'send-email-logs.ts',
-        });
-  
-        this.logRepository.saveLog(log);
-
-        console.log('Error: email Not Sent');
-
-        return false;
-      }
-
       const log = new LogEntity({
         level: LogSeverityLevel.HIGH,
-        message: 'Unknown error!',
+        message: `Error sending email: ${(error as Error).message}`,
         origin: 'send-email-logs.ts',
       });
 
