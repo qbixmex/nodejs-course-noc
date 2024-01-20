@@ -27,10 +27,6 @@ class CheckServiceMultiple implements CheckServiceMultipleUseCase {
 
       const request = await fetch( url );
 
-      if (!request.ok) {
-        throw new Error(`Error on check service: ${url}`);
-      }
-
       const log = new LogEntity({
         message: `Service ${url} is working`,
         level: LogSeverityLevel.LOW,
@@ -45,7 +41,9 @@ class CheckServiceMultiple implements CheckServiceMultipleUseCase {
 
     } catch (error) {
 
-      const errorMessage = `${url} is not working. ${error}`;
+      let errorMessage = '';
+      errorMessage += `${url} is not working.\n`;
+      errorMessage += `Error: ${(error as Error).message} !`;
 
       const log = new LogEntity({
         message: errorMessage,
