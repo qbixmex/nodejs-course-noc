@@ -31,22 +31,25 @@ class FileSystemDataSource implements LogRepository {
 
   }
 
-  async saveLog(newLog: LogEntity): Promise<void> {
+  async saveLog(newLog: LogEntity): Promise<boolean> {
 
     const logAsJSON = `${JSON.stringify(newLog)}\n`;
 
     fs.appendFileSync(this.allLogsPath, logAsJSON);
 
-    if (newLog.level === LogSeverityLevel.LOW) return;
+    if (newLog.level === LogSeverityLevel.LOW) return true;
 
     if (newLog.level === LogSeverityLevel.MEDIUM) {
       fs.appendFileSync(this.mediumLogsPath, logAsJSON);
-      return;
+      return true;
     }
 
     if (newLog.level === LogSeverityLevel.HIGH) {
       fs.appendFileSync(this.highLogsPath, logAsJSON);
+      return true;
     }
+
+    return true;
 
   }
 
