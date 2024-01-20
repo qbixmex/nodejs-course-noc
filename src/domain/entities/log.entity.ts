@@ -32,22 +32,22 @@ class LogEntity {
     const log = new LogEntity({
       message:   jsonOptions.message,
       level:     jsonOptions.level,
-      createdAt: jsonOptions.createdAt,
       origin:    jsonOptions.origin,
+      createdAt: jsonOptions.createdAt ? new Date(jsonOptions.createdAt) : new Date(),
     });
 
     return log;
 
   }
 
-  private generateDate(timeZone = 'Europe/London'): Date {
-    const date = new Date();
-    return new Date(date.toLocaleString('en-US', { timeZone }));
-  }
-
   static fromObject = (object: LogOptions): LogEntity => {
     return new LogEntity(object);
   };
+
+  protected generateDate(timeZone = 'Europe/London'): Date {
+    const date = new Date();
+    return new Date(date.toLocaleString('en-US', { timeZone }));
+  }
 
 }
 

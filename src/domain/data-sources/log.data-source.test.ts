@@ -1,4 +1,3 @@
-import { resolve } from 'path';
 import LogEntity, { LogSeverityLevel } from '../entities/log.entity';
 import LogDataSource from './log.data-source';
 
