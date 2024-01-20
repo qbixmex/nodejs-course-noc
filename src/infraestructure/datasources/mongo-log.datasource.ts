@@ -4,11 +4,14 @@ import LogDataSource from "../../domain/data-sources/log.data-source";
 
 class MongoLogDataSource implements LogDataSource {
 
-  async saveLog(log: LogEntity): Promise<void> {
-    await LogModel.create(log);
-    // const newLog = await LogModel.create(log);
-    // console.log('Mongo Log Created:');
-    // console.log(newLog);
+  async saveLog(log: LogEntity): Promise<boolean> {
+    try {
+      await LogModel.create(log);
+      // console.log({ id: newLog._id });
+      return true;
+    } catch  {
+      return false;
+    }
   }
 
   async getLogs(severityLevel: LogSeverityLevel): Promise<LogEntity[]> {
