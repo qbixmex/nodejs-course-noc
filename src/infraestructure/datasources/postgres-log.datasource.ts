@@ -2,7 +2,7 @@ import { PrismaClient, SeverityLevel } from "@prisma/client";
 import LogDataSource from "../../domain/data-sources/log.data-source";
 import LogEntity, { LogSeverityLevel } from "../../domain/entities/log.entity";
 
-const severityEnum = {
+export const severityEnum = {
   low: SeverityLevel.LOW,
   medium: SeverityLevel.MEDIUM,
   high: SeverityLevel.HIGH,
@@ -10,18 +10,23 @@ const severityEnum = {
 
 class PostgresLogDataSource implements LogDataSource {
 
-  async saveLog(log: LogEntity): Promise<void> {
+  async saveLog(log: LogEntity): Promise<boolean> {
 
     const prisma = new PrismaClient();
     const severityLevel = severityEnum[log.level];
 
-    await prisma.logModel.create({
-      data: {
-        message: log.message,
-        level: severityLevel,
-        origin: log.origin
-      }
-    });
+    try {
+      const newLog = await prisma.logModel.create({
+        data: {
+          message: log.message,
+          level: severityLevel,
+          origin: log.origin
+        }
+      });
+      return true;
+    } catch(error) {
+      return false;
+    }
 
   }
 
@@ -29,7 +34,7 @@ class PostgresLogDataSource implements LogDataSource {
     const prisma = new PrismaClient();
 
     const dbLogs = await prisma.logModel.findMany({
-      orderBy: { id: 'asc' },
+      orderBy: { createdAt: 'asc' },
       where: { level: severityEnum[severityLevel] },
     });
 
