@@ -1,14 +1,14 @@
 import nodemailer from "nodemailer";
 import { envs } from '../../config/plugins/envs.plugin';
 
-type SendMailOptions = {
+export type SendMailOptions = {
   to: string | string[];
   subject: string;
   htmlBody: string;
   attachments?: Attachment[];
 };
 
-interface Attachment {
+export interface Attachment {
   filename: string;
   path: string;
 }
@@ -45,7 +45,7 @@ class EmailService {
 
   }
 
-  private async sendEmail(options: SendMailOptions): Promise<boolean> {
+  async sendEmail(options: SendMailOptions): Promise<boolean> {
 
     try {
 
@@ -64,6 +64,8 @@ class EmailService {
 
     }
   }
+
+  
 
 }
 
